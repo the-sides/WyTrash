@@ -12,6 +12,7 @@ function initMap() {
 
 
 function updateMap(data){
+  console.log(data)
   var markers = data.positions.map(function(location, i) {
     return new google.maps.Marker({
       position: location,
@@ -24,7 +25,22 @@ function updateMap(data){
 }
 
 function geocodeSearch(query){
-
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'address':query}, function(results, status){
+    data = {positions:[{lat:"",lng:""}]};
+    let lat = results[0].geometry.location.lat()
+    let lng = results[0].geometry.location.lng()
+    console.log(lat)
+    console.log(lng)
+    data.positions[0].lat = lat
+    data.positions[0].lng = lng
+    let center = {lat:lat, lng:lng}
+    map.setCenter(center)
+    // Don't add the pin on a map. Center map view on pin, and update status to...
+    // Give estimate on route...
+    // If within 24 hours, check for reports within 100 feet, provide feedback
+    // updateMap(data);
+  })
   return true;
 }
 

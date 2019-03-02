@@ -25,7 +25,9 @@ body {
 input{
   color:white;
 }
-
+#address-info > h6{
+  display: inline;
+}
 table{
   display:inline;
   float: right;
