@@ -10,4 +10,5 @@ router.get('/trip-report', function(req,res){
   res.send({foo:'bar'});
 })
 
+
 module.exports = router;
