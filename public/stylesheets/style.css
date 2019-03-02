@@ -1,4 +1,5 @@
 html, body{
+  color: white !important;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -6,10 +7,23 @@ html, body{
 body {
   padding: 12px 24px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:rgb(37, 37, 37);
+}
+
+#header{
+  background-color:rgb(68, 68, 68);
+  padding:1em;
+  border-radius: 2%;
+}
+#status{
+  background-color: rgb(37, 37, 37);
 }
 
 #container{
   height:100%;
+}
+input{
+  color:white;
 }
 
 table{
