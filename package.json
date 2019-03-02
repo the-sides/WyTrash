@@ -1,22 +1,16 @@
 {
   "name": "wytrash",
-  "version": "1.0.0",
-  "description": "Why is my trash still here? Has the truck not arrived yet? Did I screw up? Am I the asshole? You have the questions, whyismytrashstillhere.com has the answers. ",
-  "main": "app.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/the-sides/WyTrash.git"
-  },
-  "author": "Team Trashy",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/the-sides/WyTrash/issues"
-  },
-  "homepage": "https://github.com/the-sides/WyTrash#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "^2.5.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0"
   }
 }
