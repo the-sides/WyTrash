@@ -3,19 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <!-- <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style> -->
+    <script src="javascripts/jquery-3.3.1.js"></script>
     <script>
       var map;
       function initMap() {
@@ -27,15 +15,15 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2BkiI59erV23pjx7bfHwvVniaqQFyVLg&callback=initMap"
     async defer></script>
-    <script src="javascripts/client.js"></script>
   </head>
 
   <body>
     <h1><%= title %></h1>
+    <p>Jquery status:<p id="jstatus"></p></p>
     <h2>Truck status: <span><%= truck_status %></span> </h2>
 
     <!-- Google Map frame -->
     <div id="map"></div>
-
+    <script src="javascripts/client.js"></script>
   </body>
 </html>
