@@ -8,38 +8,45 @@ var storage = new Storage({
 
 const bucket = storage.bucket('whyismytrashstillhere.com');
 
+function getPublicUrl (filename) {
+  return `https://storage.googleapis.com/${CLOUD_BUCKET}/${filename}`;
+}
 
 
 function uploadFile(req, res, next) {
-  if (!req.file) {
+  console.log(req.files.length);
+  if (req.files.length == 0) {
+    console.log('No file specified')
     res.send('No File Specified')
     return next();
   }
+  console.log(req.files[0])
+  var gcsname = Date.now() + req.files[0].originalname;
+  var file = bucket.file(gcsname);
 
-  const gcsname = Date.now() + req.file.originalname;
-  const file = bucket.file(gcsname);
-
-  const stream = file.createWriteStream({
+  var stream = file.createWriteStream({
     metadata: {
-      contentType: req.file.mimetype
+      contentType: req.files[0].mimetype
     },
     resumable: false
   });
 
   stream.on('error', (err) => {
-    req.file.cloudStorageError = err;
+    req.files[0].cloudStorageError = err;
     next(err);
   });
 
   stream.on('finish', () => {
-    req.file.cloudStorageObject = gcsname;
+    req.files[0].cloudStorageObject = gcsname;
     file.makePublic().then(() => {
-      req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
+      req.files[0].cloudStoragePublicUrl = getPublicUrl(gcsname);
       next();
     });
   });
 
-  stream.end(req.file.buffer);
+  stream.end(req.files[0].buffer);
+
+  console.log(req.files[0])
 
   res.send("success/fail");
 }

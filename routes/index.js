@@ -12,5 +12,9 @@ router.get('/trip-report', function(req,res){
   res.send(payload);
 })
 
+router.get('/test-upload', function(req, res){
+  res.render('upload', { title: "meh"})
+})
+
 
 module.exports = router;
