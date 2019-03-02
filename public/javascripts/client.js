@@ -23,19 +23,29 @@ function updateMap(data){
     markers[i].setMap(map);
 }
 
+function geocodeSearch(query){
+
+  return true;
+}
 
 $(function(){
   $('#jstatus').text("GO");
   $.get("/trip-report", function(data,status){
     console.log("Data: ", data);
     console.log("Status: ", status);
-    // locations = data.positions;
     updateMap(data);
   })
+
+  $('#address-lookup-btn').click(function(){
+    console.log("Searching ", $('#address-lookup').val());
+    geocodeSearch($('#address-lookup').val());
+  })
+
 })
 
-
-
+  /////////////////////////////////////////
+  ///////////    TRASH      ///////////////
+  /////////////////////////////////////////
   // Pre-loaded cluster
   // var markers = locations.map(function(location, i) {
   //   return new google.maps.Marker({

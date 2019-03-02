@@ -4,19 +4,58 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="javascripts/jquery-3.3.1.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="javascripts/client.js"></script>
   </head>
 
   <body>
-    <h1><%= title %></h1>
-    <p>Jquery status:<p id="jstatus"></p></p>
-    <h2>Truck status: <span><%= truck_status %></span> </h2>
+      
+    <h4><%= title %></h4>
+    <p>Jquery status: <span id="jstatus"></span></p>
+    <h5>Truck status: <span><%= truck_status %></span> </h5>
 
-    <!-- Google Map frame -->
-    <div id="map"></div>
-    
+    <input id="address-lookup" type="text">
+    <button id=address-lookup-btn>Search</button>
+
+    <div class="row" id="container">
+    <div class="col s9" id="map"></div>
+
+      <!-- Google Map frame -->
+
+      <div class="col s3" id="report-container">
+        <table>
+          <thead>
+            <tr>
+              <th>PIN</th>
+              <th>PROBLEM</th>
+              <th>PIC</th>
+            </tr>
+          </thead>
+          <tbody id="report-table-body">
+            <tr>
+              <td>A</td>
+              <td>Overflow</td>
+              <td>link</td>
+            </tr>
+            <tr>
+              <td>B</td>
+              <td>Too Far</td>
+              <td>link</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- Map Update -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2BkiI59erV23pjx7bfHwvVniaqQFyVLg&callback=initMap&libraries=drawing"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
   </body>
 </html>

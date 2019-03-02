@@ -8,10 +8,24 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#container{
+  height:100%;
+}
+
+table{
+  display:inline;
+  float: right;
+}
 #map {
-  height: 100%;
+  display: inline;
+  height: 70%;
+  width: 70%;
 }
 
 a {
   color: #00B7FF;
+}
+
+span{
+  display: inline;
 }
