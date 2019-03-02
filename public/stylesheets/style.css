@@ -1,6 +1,15 @@
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body {
-  padding: 50px;
+  padding: 12px 24px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#map {
+  height: 100%;
 }
 
 a {
