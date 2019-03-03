@@ -1,3 +1,5 @@
+//Import mongo
+var mongo = require('./mongo');
 // Imports the Google Cloud client library
 var {Storage} = require('@google-cloud/storage');
 
@@ -14,16 +16,20 @@ function getPublicUrl (filename) {
 
 
 function uploadFile(req, res, next) {
-  console.log(req.files.length);
+  mongo.connect();
+ 
+  //Check if the file array contains files
   if (req.files.length == 0) {
     console.log('No file specified')
     res.send('No File Specified')
     return next();
   }
-  console.log(req.files[0])
+  
+  //create a filename to store onto the server
   var gcsname = Date.now() + req.files[0].originalname;
   var file = bucket.file(gcsname);
 
+  //write data to gcloud storage
   var stream = file.createWriteStream({
     metadata: {
       contentType: req.files[0].mimetype
@@ -46,11 +52,10 @@ function uploadFile(req, res, next) {
 
   stream.end(req.files[0].buffer);
 
-  console.log(req.files[0])
-
   res.send("success/fail");
 }
 
+//Multer is a file object parser attached to the req object
 const Multer = require('multer');
 const multer = Multer({
   storage: Multer.MemoryStorage,
