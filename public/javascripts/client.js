@@ -12,35 +12,54 @@ function initMap() {
 }
 
 function updateTable(data){
-  console.log(data)
+  // console.log(data)
   for(key in data){
     let row = $("<tr>", {"class":"rowNode"});
+
+    // Pin's label
     let col = $("<td>", {"class":"rowData"}).text(labels[rowsN++ % labels.length])
     row.append(col);
+
+    // Pin's complaint
     col = $("<td>", {"class":"rowData"}).text(data[key].complaint)
     row.append(col);
+
+    // Pin's picture
     let picLink = $("<a>", {"href":"https://www.google.com"}).text("link")
     col = $("<td>", {"class":"rowData"}).html(picLink)
     row.append(col);
+
+    // Attach newly built row
     $("#report-table-body").append(row);
   }
 
 }
-
+var markers = []
 function updateMap(data){
   console.log(data)
-  var myLatlng, marker;
+  var myLatlng;
+
   for(key in data){
     console.log(data[key])
     myLatlng = new google.maps.LatLng(data[key].lat, data[key].long);
 
-    marker = new google.maps.Marker({
+    var infowindow = new google.maps.InfoWindow({
+      content:"<div style='color:black;'><p>hi :)</p></div>"
+    })
+
+    var marker = new google.maps.Marker({
         position: myLatlng,
         title:data[key].complaint,
         label: labels[(rowsN + key) % labels.length]
     });
-    marker.setMap(map);
+    markers.push(marker);
+    map.addListener('click', function(){
+      infowindow.open(map, markers[markers.length-1])
+    })
+    markers[markers.length-1].setMap(map);
   }
+    // for(key in map.markers){
+    // }
   // var markers = data.positions.map(function(location, i) {
   //   return new google.maps.Marker({
   //     position: location,
@@ -52,7 +71,7 @@ function updateMap(data){
 }
 
 function geocodeSearch(query){
-  if(query === ""){ console.log("pfft, gtfo"); return false; }
+  if(query === ""||" "){ console.log("pfft, gtfo"); return false; }
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address':query}, function(results, status){
     let lat = results[0].geometry.location.lat()
