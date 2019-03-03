@@ -4,6 +4,8 @@ console.log("Welcome to client-side script")
 var map, locations;
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var rowsN = 0;
+var pinTable = [];
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.9606384, lng: -83.9207392},
@@ -14,7 +16,7 @@ function initMap() {
 function updateTable(data){
   // console.log(data)
   for(key in data){
-    let row = $("<tr>", {"class":"rowNode"});
+    let row = $("<tr>", {"class":"rowNode", "id":"node"+rowsN});
 
     // Pin's label
     let col = $("<td>", {"class":"rowData"}).text(labels[rowsN++ % labels.length])
@@ -31,6 +33,9 @@ function updateTable(data){
 
     // Attach newly built row
     $("#report-table-body").append(row);
+
+    // Add to [global]pinTable
+    pinTable.push(data[key]);
   }
 
 }
@@ -62,16 +67,6 @@ function updateMap(data){
     })(marker,infowindow)); 
     marker.setMap(map);
   }
-    // for(key in map.markers){
-    // }
-  // var markers = data.positions.map(function(location, i) {
-  //   return new google.maps.Marker({
-  //     position: location,
-  //     label: labels[i % labels.length]
-  //   });
-  // });
-
-  // for(i in markers)
 }
 
 function geocodeSearch(query){
@@ -98,6 +93,12 @@ function geocodeSearch(query){
   return true;
 }
 
+// Event Callbacks
+function addressLookupClick(){
+  console.log("Searching ", $('#address-lookup').val());
+  geocodeSearch($('#address-lookup').val());
+}
+
 $(function(){
   $.get("/trip-report", function(data,status){
     console.log("Data: ", data);
@@ -107,14 +108,17 @@ $(function(){
     updateTable(data);
   })
 
-  function addressLookupClick(){
-    console.log("Searching ", $('#address-lookup').val());
-    geocodeSearch($('#address-lookup').val());
-  }
+  // Event Listeners
   $('#address-lookup').keypress(function(e){
     if(e.keyCode == 13) addressLookupClick();
   })
   $('#address-lookup-btn').click(addressLookupClick)
+  $('#report-container').on("click",".rowNode",function(){
+    let selection = $(this).attr("id").substring(4);
+    let center = {lat:pinTable[selection].lat, lng:pinTable[selection].long}
+    map.setCenter(center)
+
+  })
 })
   /////////////////////////////////////////
   ///////////    TRASH      ///////////////
@@ -145,6 +149,16 @@ $(function(){
   //   // map is a global variable defined in client.js
   //   marker.setMap(map);
   // </script> -->
+
+    // for(key in map.markers){
+    // }
+  // var markers = data.positions.map(function(location, i) {
+  //   return new google.maps.Marker({
+  //     position: location,
+  //     label: labels[i % labels.length]
+  //   });
+  // });
+  // for(i in markers)
 
   // <!-- Map Initial Load -->
   // <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2BkiI59erV23pjx7bfHwvVniaqQFyVLg&callback=initMap" ></script> -->

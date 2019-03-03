@@ -52,6 +52,9 @@ input{
 #address-info > h6{
   display: inline;
 }
+tr:hover{
+  background-color: orange;
+}
 
 #report-container{
   margin:1em;
