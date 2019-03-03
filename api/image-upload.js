@@ -11,7 +11,7 @@ var storage = new Storage({
 const bucket = storage.bucket('whyismytrashstillhere.com');
 
 function getPublicUrl (filename) {
-  return `https://storage.googleapis.com/${CLOUD_BUCKET}/${filename}`;
+  return 'https://storage.googleapis.com/whyismytrashstillhere.com/'+filename;
 }
 
 
@@ -23,8 +23,10 @@ function uploadFile(req, res, next) {
     res.send('No File Specified')
     return next();
   }
-  data = JSON.parse(req.data);
-  mongo.insertTrashReport(req.files[0].originalname, req.data.complaint, req.data.latitude, req.data.longitude, req.data.time);
+  data = req.body;
+  
+  url = getPublicUrl(req.files[0].originalname);
+  mongo.insertTrashReport(url, data.complaint, data.latitude, data.longitude, Date.now());
   //create a filename to store onto the server
   var gcsname = req.files[0].originalname;
   var file = bucket.file(gcsname);
