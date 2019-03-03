@@ -5,6 +5,7 @@ var map, locations;
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var rowsN = 0;
 var pinTable = [];
+var pinReactor = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -60,10 +61,12 @@ function updateMap(data){
         label: labels[(rowsN + key) % labels.length]
     });
     google.maps.event.addListener(marker,'click', (function(marker,infowindow){ 
-      return function() {
+      let func = function() {
           // infowindow.setContent();
           infowindow.open(map,marker);
       };
+      pinReactor.push(func);
+      return func;
     })(marker,infowindow)); 
     marker.setMap(map);
   }
@@ -117,6 +120,7 @@ $(function(){
     let selection = $(this).attr("id").substring(4);
     let center = {lat:pinTable[selection].lat, lng:pinTable[selection].long}
     map.setCenter(center)
+    pinReactor[selection]();
 
   })
 })

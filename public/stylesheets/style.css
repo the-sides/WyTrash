@@ -23,8 +23,8 @@ body {
 #title_icon{
   height: 96px;
   position: absolute;
-  top: 24px;
-  left: 42px;
+  top: 32px;
+  left: 52px;
   min-width:48px;
   /* margin-right: 100px; */
 }
