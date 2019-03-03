@@ -71,7 +71,7 @@ function updateMap(data){
 }
 
 function geocodeSearch(query){
-  if(query === ""||" "){ console.log("pfft, gtfo"); return false; }
+  if(query === ""){ console.log("pfft, gtfo"); return false; }
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address':query}, function(results, status){
     let lat = results[0].geometry.location.lat()
