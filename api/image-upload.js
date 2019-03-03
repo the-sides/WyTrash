@@ -23,9 +23,10 @@ function uploadFile(req, res, next) {
     res.send('No File Specified')
     return next();
   }
-  
+  data = JSON.parse(req.data);
+  mongo.insertTrashReport(req.files[0].originalname, req.data.complaint, req.data.latitude, req.data.longitude, req.data.time);
   //create a filename to store onto the server
-  var gcsname = Date.now() + req.files[0].originalname;
+  var gcsname = req.files[0].originalname;
   var file = bucket.file(gcsname);
 
   //write data to gcloud storage
