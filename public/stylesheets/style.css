@@ -45,6 +45,10 @@ body {
 input{
   color:white;
 }
+.list-thumbnail{
+  height: 32px;
+  width: 32px;
+}
 #address-info > h6{
   display: inline;
 }

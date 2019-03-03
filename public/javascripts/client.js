@@ -25,7 +25,7 @@ function updateTable(data){
     row.append(col);
 
     // Pin's picture
-    let picLink = $("<a>", {"href":"https://www.google.com"}).text("link")
+    let picLink = $("<img>", {"class":"list-thumbnail","src":data[key].imgName})
     col = $("<td>", {"class":"rowData"}).html(picLink)
     row.append(col);
 
@@ -43,7 +43,10 @@ function updateMap(data){
     myLatlng = new google.maps.LatLng(data[key].lat, data[key].long);
 
     var infowindow = new google.maps.InfoWindow({
-      content:"<div style='color:black;'><p>hi :)</p></div>"
+      content: "<div style='color:black;'>\
+                <p>"+data[key].complaint+"</p>\
+                <img src='https://storage.googleapis.com/whyismytrashstillhere.com/1551600088.285217.jpeg'></div>"
+                // <img src='"+data[key].imgName+"'></div>"
     })
 
     var marker = new google.maps.Marker({
@@ -51,12 +54,12 @@ function updateMap(data){
         title:data[key].complaint,
         label: labels[(rowsN + key) % labels.length]
     });
-    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+    google.maps.event.addListener(marker,'click', (function(marker,infowindow){ 
       return function() {
-          infowindow.setContent(content);
+          // infowindow.setContent();
           infowindow.open(map,marker);
       };
-    })(marker,content,infowindow)); 
+    })(marker,infowindow)); 
     marker.setMap(map);
   }
     // for(key in map.markers){
