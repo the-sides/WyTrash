@@ -13,15 +13,25 @@ function initMap() {
 
 function updateMap(data){
   console.log(data)
-  var markers = data.positions.map(function(location, i) {
-    return new google.maps.Marker({
-      position: location,
-      label: labels[i % labels.length]
-    });
-  });
+  var myLatlng, marker;
+  for(key in data){
+    console.log(data[key])
+    myLatlng = new google.maps.LatLng(data[key].lat, data[key].long);
 
-  for(i in markers)
-    markers[i].setMap(map);
+    marker = new google.maps.Marker({
+        position: myLatlng,
+        title:data[key].complaint
+    });
+    marker.setMap(map);
+  }
+  // var markers = data.positions.map(function(location, i) {
+  //   return new google.maps.Marker({
+  //     position: location,
+  //     label: labels[i % labels.length]
+  //   });
+  // });
+
+  // for(i in markers)
 }
 
 function geocodeSearch(query){
@@ -52,6 +62,7 @@ $(function(){
   $.get("/trip-report", function(data,status){
     console.log("Data: ", data);
     console.log("Status: ", status);
+    // console.log(data);
     updateMap(data);
   })
 
