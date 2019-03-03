@@ -6,6 +6,8 @@ var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var rowsN = 0;
 var pinTable = [];
 var pinReactor = [];
+var selection = -1;
+var pinCloser = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -13,6 +15,19 @@ function initMap() {
     zoom: 15
   });
 }
+
+function updateAddressStatus(center){
+  $('#address-result').text("Calculating...")
+  for(pin in pinTable){
+    if ((Math.abs(pinTable[pin].lat - center.lat) < 0.0003) 
+    || (Math.abs(pinTable[pin].long - center.lng) < 0.0003)){
+      $('#address-result').text("Keep your trash you filthy animal. "+pinTable[pin].complaint);
+      return true;
+    }
+  }
+  $('#address-result').text("You're trash has been taken.");
+}
+
 
 function updateTable(data){
   // console.log(data)
@@ -65,7 +80,11 @@ function updateMap(data){
           // infowindow.setContent();
           infowindow.open(map,marker);
       };
+      let closer = function(){
+        infowindow.close(map, marker);
+      }
       pinReactor.push(func);
+      pinCloser.push(closer)
       return func;
     })(marker,infowindow)); 
     marker.setMap(map);
@@ -76,12 +95,13 @@ function geocodeSearch(query){
   if(query === ""){ console.log("pfft, gtfo"); return false; }
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address':query}, function(results, status){
-    let lat = results[0].geometry.location.lat()
-    let lng = results[0].geometry.location.lng()
-    let center = {lat:lat, lng:lng}
-    console.log(lat)
-    console.log(lng)
-    map.setCenter(center)
+    let lat = results[0].geometry.location.lat();
+    let lng = results[0].geometry.location.lng();
+    let center = {lat:lat, lng:lng};
+    console.log(lat);
+    console.log(lng);
+    map.setCenter(center);
+    updateAddressStatus(center);
 
     /*      If we're mapping pins... which we aren't...
 
@@ -117,9 +137,11 @@ $(function(){
   })
   $('#address-lookup-btn').click(addressLookupClick)
   $('#report-container').on("click",".rowNode",function(){
-    let selection = $(this).attr("id").substring(4);
+    if(selection != -1)
+      pinCloser[selection]();
+    selection = $(this).attr("id").substring(4);
     let center = {lat:pinTable[selection].lat, lng:pinTable[selection].long}
-    map.setCenter(center)
+    map.setCenter(center);
     pinReactor[selection]();
 
   })
