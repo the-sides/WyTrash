@@ -24,7 +24,6 @@
           <h3><%= title %></h3>
         </div>
         <div class="col s4" id="status">
-          <p>Jquery status: <span id="jstatus"></span></p>
           <h5>Truck status: <span><%= truck_status %></span> </h5>
         </div>
 
@@ -32,8 +31,9 @@
   
       <div class="row">
         <h6 class="col s2">Address Lookup</h6>
-        <input class="col s8" id="address-lookup" type="text">
-        <button class="col s2" id=address-lookup-btn>Search</button>
+        <input class="col s7" id="address-lookup" type="text">
+        <span class="col s1"></span>
+        <button class="col s2 options" id=address-lookup-btn>Search</button>
       </div>
       <div id="address-info">
         <h6>Address Status: </h6>
@@ -44,8 +44,6 @@
 
     <div class="row" id="container">
 
-      <!-- Google Map frame -->
-    <div class="col s9" id="map"></div>
 
       <div class="col s3" id="report-container">
         <table>
@@ -70,6 +68,10 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Google Map frame -->
+      <div class="col s8" id="map"></div>
+
     </div>
 
     <!-- Map Update -->

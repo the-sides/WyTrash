@@ -25,6 +25,7 @@ function updateMap(data){
 }
 
 function geocodeSearch(query){
+  if(query === ""){ console.log("pfft, gtfo"); return false; }
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address':query}, function(results, status){
     data = {positions:[{lat:"",lng:""}]};
@@ -45,20 +46,21 @@ function geocodeSearch(query){
 }
 
 $(function(){
-  $('#jstatus').text("GO");
   $.get("/trip-report", function(data,status){
     console.log("Data: ", data);
     console.log("Status: ", status);
     updateMap(data);
   })
 
-  $('#address-lookup-btn').click(function(){
+  function addressLookupClick(){
     console.log("Searching ", $('#address-lookup').val());
     geocodeSearch($('#address-lookup').val());
+  }
+  $('#address-lookup').keypress(function(e){
+    if(e.keyCode == 13) addressLookupClick();
   })
-
+  $('#address-lookup-btn').click(addressLookupClick)
 })
-
   /////////////////////////////////////////
   ///////////    TRASH      ///////////////
   /////////////////////////////////////////
