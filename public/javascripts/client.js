@@ -34,7 +34,6 @@ function updateTable(data){
   }
 
 }
-var markers = []
 function updateMap(data){
   console.log(data)
   var myLatlng;
@@ -52,11 +51,13 @@ function updateMap(data){
         title:data[key].complaint,
         label: labels[(rowsN + key) % labels.length]
     });
-    markers.push(marker);
-    map.addListener('click', function(){
-      infowindow.open(map, markers[markers.length-1])
-    })
-    markers[markers.length-1].setMap(map);
+    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+      return function() {
+          infowindow.setContent(content);
+          infowindow.open(map,marker);
+      };
+    })(marker,content,infowindow)); 
+    marker.setMap(map);
   }
     // for(key in map.markers){
     // }
