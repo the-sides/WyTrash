@@ -3,6 +3,7 @@ console.log("Welcome to client-side script")
 // GOOGLE MAPS
 var map, locations;
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var rowsN = 0;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.9606384, lng: -83.9207392},
@@ -10,6 +11,21 @@ function initMap() {
   });
 }
 
+function updateTable(data){
+  console.log(data)
+  for(key in data){
+    let row = $("<tr>", {"class":"rowNode"});
+    let col = $("<td>", {"class":"rowData"}).text(labels[rowsN++ % labels.length])
+    row.append(col);
+    col = $("<td>", {"class":"rowData"}).text(data[key].complaint)
+    row.append(col);
+    let picLink = $("<a>", {"href":"https://www.google.com"}).text("link")
+    col = $("<td>", {"class":"rowData"}).html(picLink)
+    row.append(col);
+    $("#report-table-body").append(row);
+  }
+
+}
 
 function updateMap(data){
   console.log(data)
@@ -20,7 +36,8 @@ function updateMap(data){
 
     marker = new google.maps.Marker({
         position: myLatlng,
-        title:data[key].complaint
+        title:data[key].complaint,
+        label: labels[(rowsN + key) % labels.length]
     });
     marker.setMap(map);
   }
@@ -64,6 +81,7 @@ $(function(){
     console.log("Status: ", status);
     // console.log(data);
     updateMap(data);
+    updateTable(data);
   })
 
   function addressLookupClick(){
