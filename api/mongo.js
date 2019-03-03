@@ -18,7 +18,8 @@ var trashReportSchema = new Schema({
 
 var trashReport = mongoose.model("trashReport", trashReportSchema);
 
-function insertImage(img, complaint, latitude, longitude, now){
+function insertTrashReport(img, complaint, latitude, longitude, now){
+    connect();
     var newReport = new trashReport({
         imgName: img,
         complaint: complaint,
@@ -34,11 +35,16 @@ function insertImage(img, complaint, latitude, longitude, now){
     });
 }
 
-function getTrashReport(){
-    
+function getTrashReports(){
+    connect();
+    trashReport.find({}, function(err, data){
+        if(err) console.log(err);
+        console.log(data);
+    })
 }
 module.exports = {
-    connect,
+    insertTrashReport,
+    getTrashReports
 }
 
 

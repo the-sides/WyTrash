@@ -16,7 +16,6 @@ function getPublicUrl (filename) {
 
 
 function uploadFile(req, res, next) {
-  mongo.connect();
  
   //Check if the file array contains files
   if (req.files.length == 0) {
