@@ -62,3 +62,6 @@ typings/
 
 #database connection string
 api/mongo-key.json
+
+# i fucking hate this mac shit
+.DS_Store

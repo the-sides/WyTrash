@@ -6,21 +6,36 @@ html, body{
 }
 body {
   padding: 12px 24px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+  font-family: 'Archivo', sans-serif;
   background-color:rgb(37, 37, 37);
 }
 
 #header{
   background-color:rgb(68, 68, 68);
+  margin: 0.5em;
   padding:1em;
-  border-radius: 2%;
+  border-radius: 20px;
 }
+
+#title_icon{
+  height: 96px;
+  position: absolute;
+  top: 24px;
+  left: 42px;
+  min-width:48px;
+  /* margin-right: 100px; */
+}
+
 #status{
   background-color: rgb(37, 37, 37);
+  border-radius: 8px;
+  float:right;
 }
 
 #container{
   height:100%;
+  margin: 1em;
 }
 input{
   color:white;
@@ -28,14 +43,13 @@ input{
 #address-info > h6{
   display: inline;
 }
-table{
-  display:inline;
-  float: right;
-}
+
 #map {
-  display: inline;
+  margin-top:2em;
+  border: white solid 3px;
   height: 70%;
   width: 70%;
+  border-radius: 10px;
 }
 
 a {
