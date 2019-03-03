@@ -9,5 +9,4 @@ var mgo = require('./../api/mongo');
 router.post('/image-upload', api.multer.any(), api.uploadFile);
 
 
-
 module.exports = router;

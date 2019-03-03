@@ -35,11 +35,14 @@ function insertTrashReport(img, complaint, latitude, longitude, now){
     });
 }
 
-function getTrashReports(){
+function getTrashReports(req, res, next){
     connect();
     trashReport.find({}, function(err, data){
-        if(err) console.log(err);
-        console.log(data);
+        if(err) res.send(err);
+        else{
+            req.trashReports = data;
+            next();
+        }
     })
 }
 module.exports = {
