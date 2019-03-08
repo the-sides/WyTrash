@@ -33,21 +33,23 @@ function insertTrashReport(img, complaint, latitude, longitude, now){
         if(error){
             console.log(error);
         }
+        close();
         console.log("Entry Saved");
     });
-    close();
+    
 }
 
 function getTrashReports(req, res, next){
     connect();
     trashReport.find({}, function(err, data){
+        close();
         if(err) res.send(err);
         else{
             req.trashReports = data;
             next();
         }
     })
-    close();
+    
 }
 module.exports = {
     insertTrashReport,
