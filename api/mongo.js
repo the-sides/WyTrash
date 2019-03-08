@@ -5,7 +5,9 @@ const con = require('./mongo-key.json');
 function connect(){
     mongoose.connect(con.key);
 }
-
+function close(){
+    mongoose.connection.close();
+}
 var Schema = mongoose.Schema;
 
 var trashReportSchema = new Schema({
@@ -33,6 +35,7 @@ function insertTrashReport(img, complaint, latitude, longitude, now){
         }
         console.log("Entry Saved");
     });
+    close();
 }
 
 function getTrashReports(req, res, next){
@@ -44,6 +47,7 @@ function getTrashReports(req, res, next){
             next();
         }
     })
+    close();
 }
 module.exports = {
     insertTrashReport,
