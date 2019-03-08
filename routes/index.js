@@ -4,7 +4,8 @@ var mdb = require('../api/mongo')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'WyTrash', truck_status: 'On Route...' });
+  //res.render('index', { title: 'WyTrash', truck_status: 'On Route...' });
+  res.render('indexv2', { title: 'WyTrash', truck_status: 'On Route...' });
 });
 
 // Request data from DB
