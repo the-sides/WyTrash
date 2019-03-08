@@ -5,7 +5,15 @@ var mdb = require('../api/mongo')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //res.render('index', { title: 'WyTrash', truck_status: 'On Route...' });
-  res.render('indexv2', { title: 'WyTrash', truck_status: 'On Route...' });
+
+  ////
+  //  If you want the light image then change logo to:
+  //  /images/ww-noperiod-handshake.png
+  //  Change style to ''
+  ////
+  let logo = '/images/ww-noperiod-handshake-dark.png';
+  let style = 'background-color: rgb(33, 33, 33);'
+  res.render('indexv2', { title: 'WyTrash', truck_status: 'On Route...', logo: logo, style: style });
 });
 
 // Request data from DB
