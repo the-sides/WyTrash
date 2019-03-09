@@ -17,7 +17,9 @@
     
     <link rel="stylesheet" href="/stylesheets/buttons.css">
 	<link rel="stylesheet" href="/stylesheets/popup.css">
-	<link rel="stylesheet" href="/stylesheets/inputs.css">
+  <link rel="stylesheet" href="/stylesheets/inputs.css">
+  <link rel="stylesheet" href="/stylesheets/navbar.css">
+  <link rel="stylesheet" href="/stylesheets/footer.css">
     <link rel="stylesheet" href="/stylesheets/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -46,7 +48,7 @@
 	
 	<div class="nav" style="position: relative;margin-bottom:0.0%;box-shadow: 0 2px 5px rgba(0, 0, 0, .5);">
 		<div class="nav-wrapper" style="position:relative;width:100%;height: 40px;">
-			<div style="width:40%;margin-top:-2%;"><a href="/"><img style="width:25%;" src = <%= logo %>></a></div>
+			<div class="logodiv"><a href="/"><img class='logo' src = <%= logo %>></a></div>
 		</div><br>
 		
 		<div class="row"style="width:100%;margin-top:5%;position:relative;margin-bottom:0;" id='searchBoxContainer'>
@@ -63,6 +65,8 @@
     </div>
     
     <div id="myMap" style='position:relative;width:100%;height:50%;margin:0px;padding:0px;'></div>
+
+    <div class="footer"><p><span style="cursor: pointer;">Light Theme</span></p></div>
 <script type="text/javascript">
 $(document).ready(function(){
 resizeDiv();

@@ -42,7 +42,6 @@ function GetMap() {
             var loc = new Microsoft.Maps.Location(data[i].lat, data[i].long);
 
             var pin = new Microsoft.Maps.Pushpin(loc, {
-                title: data[i].Price,
                 icon: '/images/pushpinv2.png',
                 color: '#0074e4',
                 catId: i
